@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Запуск SchoolsUpdaterBY...</title>
+    <meta name="description" content="Попытка запуска приложения SchoolsUpdaterBY. Если приложение не установлено, вы будете перенаправлены на страницу загрузки.">
+    <meta name="robots" content="noindex, nofollow"> <!-- Запрещаем индексацию этой страницы -->
+
+    <!-- Open Graph (OG) теги - можно скопировать основные с главной, если нужно -->
+    <meta property="og:title" content="Запуск SchoolsUpdaterBY">
+    <meta property="og:description" content="Попытка запуска приложения.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://app.crewcompany.top/app-launcher/">
+    <meta property="og:image" content="https://app.crewcompany.top/22.png"> <!-- Используйте ту же картинку -->
+    <meta property="og:locale" content="ru_RU">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../21.png" type="image/png"> <!-- Путь относительно текущего каталога -->
+
+    <!-- Стили и шрифты (ссылаемся на тот же style.css из корневого каталога) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css"> <!-- Путь к style.css на уровень выше -->
+
+    <style>
+        /* Дополнительные стили для страницы-запускальщика, если нужны */
+        .launcher-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh; /* Чтобы контент был по центру, даже если его мало */
+            text-align: center;
+            padding: 20px;
+        }
+        .launcher-content img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+        .launcher-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .loader { /* Простой CSS лоадер */
+            border: 5px solid #f3f3f3; /* Light grey */
+            border-top: 5px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-logo">
+                <img src="../21.png" alt="SchoolsUpdaterBY Logo" class="logo-img"> <!-- Путь к логотипу -->
+                <span>SchoolsUpdaterBY</span>
+            </div>
+            <!-- Можно убрать кнопку "Скачать" или оставить, если пользователь попадет сюда напрямую -->
+            <a href="../#download-section" class="nav-cta">Скачать</a> 
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section" style="min-height: auto; padding-top: 50px; padding-bottom: 50px;"> <!-- Уменьшим hero для этой страницы -->
+             <div class="hero-background-gradient"></div>
+            <div class="container hero-content launcher-content">
+                <img src="../21.png" alt="SchoolsUpdaterBY App Icon" class="hero-app-icon" style="width:100px; height:100px;"> <!-- Путь к иконке -->
+                <h1 class="hero-title" style="font-size: 2.5rem;">Запускаем приложение...</h1>
+                <div class="loader"></div>
+                <p class="hero-subtitle" style="font-size: 1rem;">Пожалуйста, подождите. Мы пытаемся открыть SchoolsUpdaterBY.</p>
+                <p class="apk-info-small">Если приложение не запускается автоматически, возможно, оно не установлено.</p>
+                <p class="apk-info-small">Вы будете перенаправлены на страницу загрузки через несколько секунд.</p>
+                <a href="../app-realese2.1.0.apk" class="cta-button hero-cta" download style="margin-top: 20px;">
+                    <span class="material-symbols-outlined">download</span> Скачать APK вручную
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-section">
+        <div class="container footer-content">
+            <p>© <span id="currentYear"></span> SchoolsUpdaterBY. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Скрипт для currentYear из вашего script.js (если он не подключен)
+        // Если script.js подключается, эту часть можно удалить отсюда
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSpan = document.getElementById('currentYear');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        });
+
+        function tryOpenAppAndFallback() {
+            var appCustomScheme = 'schoolsupdaterby://open'; // Ваша кастомная схема
+            var fallbackUrl = '../app-realese2.1.0.apk';      // Прямая ссылка на APK или главную страницу загрузки https://app.crewcompany.top/
+            var timeout = 2500; // мс (2.5 секунды)
+
+            var start = Date.now();
+            var isBlurred = false; // Флаг, что окно потеряло фокус (возможно, приложение открылось)
+
+            // Пытаемся открыть приложение
+            window.location.href = appCustomScheme;
+
+            // Отслеживаем потерю фокуса окна - это может означать, что приложение открылось
+            // и перехватило управление.
+            window.addEventListener('blur', function() {
+                isBlurred = true;
+                console.log('Window blurred, assuming app opened or user switched.');
+            });
+            
+            // Проверяем видимость документа (более современный способ)
+            document.addEventListener("visibilitychange", function() {
+              if (document.visibilityState === 'hidden') {
+                isBlurred = true;
+                console.log('Document hidden, assuming app opened or user switched.');
+              }
+            });
+
+
+            setTimeout(function() {
+                var timePassed = Date.now() - start;
+                // Если прошло достаточно времени И окно не теряло фокус (или вернуло его быстро)
+                // И документ все еще видим, то считаем, что приложение не открылось.
+                if (!isBlurred && timePassed >= timeout && document.visibilityState === 'visible') {
+                    console.log('Timeout reached and app likely not opened, redirecting to fallback.');
+                    window.location.href = fallbackUrl;
+                } else if (isBlurred) {
+                    console.log('App likely opened (window blurred or document hidden). No fallback redirect.');
+                    // Можно закрыть эту вкладку, если приложение открылось, но это может быть навязчиво
+                    // window.close(); // Не рекомендуется без явного действия пользователя
+                } else {
+                    console.log('Timeout reached but blur/hidden state uncertain or too quick. Holding off redirect for a moment longer or assuming app opening is slow.');
+                    // Можно добавить еще одну короткую задержку перед редиректом на всякий случай
+                    // или просто ничего не делать, если isBlurred так и не стал true.
+                    // Если пользователь все еще на странице, он может нажать кнопку "Скачать вручную".
+                }
+            }, timeout + 500); // Добавляем небольшой буфер к таймауту для проверки isBlurred
+        }
+
+        // Запускаем попытку при загрузке страницы
+        window.onload = function() {
+            tryOpenAppAndFallback();
+            
+            // Обновление года в футере, если script.js не подключен
+            const yearSpan = document.getElementById('currentYear');
+            if (yearSpan) { // Проверка, чтобы скрипт не падал, если элемента нет
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        };
+    </script>
+    <!-- Можно подключить ваш основной script.js, если в нем есть полезные функции для футера и т.д. -->
+    <script src="../script.js"></script>
+</body>
+</html>

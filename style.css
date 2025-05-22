@@ -1,0 +1,472 @@
+/* ===== Общие сбросы и настройки ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px; /* Базовый размер для rem */
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    background-color: #10101A; /* Очень темный сине-фиолетовый фон */
+    color: #EAEAEA;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    width: 90%;
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* ===== Навигационная панель ===== */
+.navbar {
+    background-color: rgba(16, 16, 26, 0.85); /* Полупрозрачный темный */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.logo-img {
+    width: 36px; /* Размер лого в навбаре */
+    height: 36px;
+    margin-right: 0.75rem;
+    border-radius: 6px; /* Слегка скруглить */
+}
+
+.nav-cta {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    background-image: linear-gradient(135deg, #6E45E2 0%, #88d3ce 100%); /* Фирменный градиент */
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.nav-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(110, 69, 226, 0.4);
+}
+
+
+/* ===== Hero Section ===== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Для градиентного фона */
+    padding-top: 80px; /* Отступ от навбара */
+}
+
+.hero-background-gradient {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(30, 27, 60, 0.9) 0%, #10101A 70%);
+    z-index: -1;
+}
+/* Дополнительные декоративные градиенты на фоне */
+.hero-section::before, .hero-section::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px); /* Сильное размытие для мягкого свечения */
+    z-index: -2;
+    pointer-events: none;
+}
+.hero-section::before { /* Левый верхний */
+    width: 40vw; height: 40vw; max-width: 500px; max-height: 500px;
+    background-color: rgba(110, 69, 226, 0.15); /* Фиолетовый */
+    top: -10%; left: -10%;
+    animation: pulse-glow 8s infinite alternate ease-in-out;
+}
+.hero-section::after { /* Правый нижний */
+    width: 35vw; height: 35vw; max-width: 450px; max-height: 450px;
+    background-color: rgba(136, 211, 206, 0.1); /* Бирюзовый */
+    bottom: -15%; right: -10%;
+    animation: pulse-glow 10s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes pulse-glow {
+    from { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
+    to { transform: scale(1.1) rotate(15deg); opacity: 1; }
+}
+
+
+.hero-content {
+    position: relative; /* Чтобы был над фоновыми градиентами */
+    z-index: 1;
+    padding-bottom: 4rem; /* Место для индикатора прокрутки */
+}
+
+.hero-icon-container {
+    margin-bottom: 1.5rem;
+    animation: subtle-bob 3s infinite ease-in-out;
+}
+.hero-app-icon {
+    width: 120px; /* Размер основной иконки */
+    height: 120px;
+    border-radius: 24px; /* Скругление в стиле iOS/новых Android */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(110, 69, 226, 0.3); /* Тень + свечение */
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 6vw, 4rem); /* Адаптивный размер шрифта */
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 0.75rem;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #e5e5e5 0%, #b0b0b0 100%); /* Градиент для текста */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: 나타남 1s ease-out;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: #A0A7B1; /* Светло-серый */
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: 나타남 1s ease-out 0.2s backwards; /* Задержка для появления */
+}
+
+.cta-button {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.9rem 2rem;
+    background-image: linear-gradient(135deg, #6E45E2 0%, #88d3ce 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: transform 0.2s ease-out, box-shadow 0.3s ease-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+}
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(110, 69, 226, 0.5);
+}
+.hero-cta {
+    animation: 나타남 1s ease-out 0.4s backwards;
+}
+
+.apk-info-small {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #777E8C;
+}
+
+.scroll-down-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+}
+.scroll-down-indicator a {
+    color: #888;
+    font-size: 2.5rem; /* Размер иконки стрелки */
+    text-decoration: none;
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+  40% {transform: translateX(-50%) translateY(-10px);}
+  60% {transform: translateX(-50%) translateY(-5px);}
+}
+@keyframes 나타남 { /* Анимация появления */
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ===== Общие стили секций ===== */
+.section-title {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #FFFFFF;
+}
+.section-title .highlight-gradient, .section-title-light .highlight-gradient-light {
+    background: linear-gradient(135deg, #6E45E2 0%, #88d3ce 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* ===== Features Section ===== */
+.features-section {
+    background-color: #161620; /* Чуть светлее основного фона */
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+.feature-item {
+    background-color: #1E1E28; /* Фон карточки */
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0; /* Для анимации */
+    transform: translateY(20px); /* Для анимации */
+}
+.feature-item.is-visible { /* Класс добавляется JS */
+    opacity: 1;
+    transform: translateY(0);
+}
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.feature-icon .material-symbols-outlined {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    background-image: linear-gradient(135deg, #6E45E2 0%, #88d3ce 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.feature-item h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #F0F0F0;
+}
+
+.feature-item p {
+    font-size: 0.95rem;
+    color: #A0A7B1;
+}
+
+
+/* ===== CTA Banner Section ===== */
+.cta-banner-section {
+    background-image: linear-gradient(135deg, #21202E 0%, #2A2A3A 100%),
+                      url('path/to/subtle_background_pattern.svg'); /* Можно добавить паттерн */
+    background-blend-mode: overlay; /* Или другой режим смешивания */
+    background-size: cover, 200px;
+    padding: 4rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.section-title-light {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+}
+.cta-banner-content p {
+    color: #C0C8D1;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.banner-cta {
+    font-size: 1.05rem;
+    padding: 0.8rem 1.8rem;
+}
+
+
+/* ===== Download Section ===== */
+.download-section {
+    padding: 4rem 0;
+    text-align: center;
+    background-color: #10101A;
+}
+.download-logo-main {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    box-shadow: 0 5px 20px rgba(110, 69, 226, 0.2);
+}
+.download-subtitle {
+    color: #A0A7B1;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+.download-main-cta {
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+}
+.apk-details {
+    margin-top: 1.5rem;
+    color: #888E99;
+    font-size: 0.9rem;
+}
+.install-guide {
+    margin-top: 1.5rem;
+    background-color: #1A1A24;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.07);
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+.install-guide summary {
+    font-weight: 500;
+    color: #C0C8D1;
+    cursor: pointer;
+    list-style-position: inside; /* Для стрелки спойлера */
+}
+.install-guide ol {
+    padding-left: 1.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+}
+.install-guide li {
+    margin-bottom: 0.5rem;
+}
+
+
+/* ===== Footer Section ===== */
+.footer-section {
+    background-color: #0D0D14; /* Самый темный */
+    padding: 2rem 0;
+    text-align: center;
+    color: #666B77;
+    font-size: 0.85rem;
+}
+.footer-content p {
+    margin-bottom: 0.3rem;
+}
+
+
+/* ===== Back to Top Button ===== */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-image: linear-gradient(135deg, #6E45E2 0%, #88d3ce 100%);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+    z-index: 900;
+}
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.back-to-top:hover {
+    filter: brightness(1.1);
+}
+
+
+/* ===== Адаптивность (Медиа-запросы) ===== */
+@media (max-width: 768px) {
+    .hero-section h1, .hero-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+    .hero-subtitle {
+        font-size: clamp(0.9rem, 4vw, 1.1rem);
+    }
+    .section-title, .section-title-light {
+        font-size: clamp(1.8rem, 6vw, 2.2rem);
+        margin-bottom: 2rem;
+    }
+    .features-grid {
+        grid-template-columns: 1fr; /* Одна колонка на мобильных */
+    }
+    .nav-logo span {
+        display: none; /* Скрыть текст лого на маленьких экранах */
+    }
+    .hero-section {
+        padding-top: 60px; /* Меньше отступ */
+        min-height: 90vh;
+    }
+    .cta-button, .nav-cta {
+        padding: 0.7rem 1.5rem;
+        font-size: 1rem;
+    }
+     .hero-cta {
+        padding: 0.8rem 1.8rem;
+    }
+    .download-main-cta {
+        padding: 0.9rem 2rem;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-app-icon {
+        width: 100px;
+        height: 100px;
+        border-radius: 20px;
+    }
+    .download-logo-main {
+        width: 80px;
+        height: 80px;
+        border-radius: 16px;
+    }
+    .feature-item {
+        padding: 1.5rem 1rem;
+    }
+    .feature-icon .material-symbols-outlined {
+        font-size: 2.5rem;
+    }
+}
