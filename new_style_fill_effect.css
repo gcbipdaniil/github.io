@@ -245,21 +245,16 @@ body {
     left: 0;
     width: 0%; /* Initial state */
     height: 100%;
-    background-color: rgba(136, 211, 206, 0.3); /* Slightly more subtle fill */
-    transition: width 2s ease-out; /* Duration of the fill + progress simulation (matches JS) */
-    z-index: 0; /* Behind the text and icon */
+    background-color: rgba(136, 211, 206, 0.4); /* Accent color, semi-transparent */
+    transition: width 2s ease-in-out; /* Duration of the fill + progress simulation */
+    z-index: 0; /* Behind the text */
     border-radius: 25px; /* Match parent's border-radius */
 }
 .cta-button.is-downloading::before {
     width: 100%; /* Fill the button */
 }
-/* Ensure text and original spinner are above the fill, or basic spinner hidden */
-.cta-button .button-text { 
-    position: relative; /* Ensure text is above ::before pseudo-element */
-    z-index: 1;
-}
 .cta-button.is-downloading .button-loader-spinner { /* Hide basic spinner if .is-downloading is active */
-    display: none !important; 
+    display: none; 
 }
 
 
@@ -745,20 +740,14 @@ body {
     display: inline-block;
     vertical-align: middle;
     transition: opacity 0.2s ease-out; 
-    position: relative; 
-    z-index: 1; 
+    position: relative; /* Ensure it's above ::before */
+    z-index: 1; /* Ensure it's above ::before */
 }
 
 .cta-button.is-loading .button-text {
     opacity: 0; 
     visibility: hidden; 
 }
-.cta-button.is-downloading .button-text { 
-    opacity: 1;
-    visibility: visible;
-    color: #FFFFFF; 
-}
-
 
 .button-loader-spinner {
     width: 1.2em; 
@@ -773,10 +762,10 @@ body {
     transform: translate(-50%, -50%); 
     opacity: 0; 
     transition: opacity 0.2s ease-in; 
-    z-index: 2; 
+    z-index: 2; /* Ensure spinner is above fill effect */
 }
 
-.cta-button.is-loading .button-loader-spinner { 
+.cta-button.is-loading .button-loader-spinner {
     opacity: 1; 
 }
 

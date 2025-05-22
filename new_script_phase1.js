@@ -221,8 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', function(event) {
         const button = event.target.closest('.download-apk-button');
 
-        // Check if already in a downloading or loading state to prevent multiple triggers
-        if (button && !button.classList.contains('is-downloading') && !button.classList.contains('is-loading')) {
+        if (button && !button.classList.contains('is-downloading') && !button.classList.contains('is-loading')) { // Prevent multiple clicks
             event.preventDefault();
 
             const buttonTextSpan = button.querySelector('.button-text');
@@ -242,16 +241,11 @@ document.addEventListener('DOMContentLoaded', () => {
             button.classList.add('is-downloading');
             buttonTextSpan.textContent = 'Downloading 0%';
             
-            // Phase 2: Simulate Progress (Text update and fill effect via CSS)
+            // Phase 2: Simulate Progress
             let progress = 0;
             const duration = 2000; // 2 seconds for simulation
             const intervals = 20; // Update every 100ms (2000ms / 20 = 100ms)
             const increment = 100 / intervals;
-
-            // Clear any existing interval for this button (robustness for rapid clicks, though prevented by class check)
-            if (button.dataset.progressInterval) {
-                clearInterval(parseInt(button.dataset.progressInterval));
-            }
 
             const progressInterval = setInterval(() => {
                 progress += increment;
@@ -260,7 +254,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     // The ::before pseudo-element's width transition handles the visual fill
                 } else {
                     clearInterval(progressInterval);
-                    button.removeAttribute('data-progress-interval');
                     
                     // Phase 3: Finalizing Download
                     buttonTextSpan.textContent = 'Finalizing...';
@@ -286,10 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 1000); 
                 }
             }, duration / intervals);
-            button.dataset.progressInterval = progressInterval.toString(); // Store interval ID
-
         } else if (button && (button.classList.contains('is-downloading') || button.classList.contains('is-loading'))) {
-            event.preventDefault(); // Prevent action if already in any loading/downloading state
+            event.preventDefault(); // Prevent action if already in a loading/downloading state
         }
     });
 

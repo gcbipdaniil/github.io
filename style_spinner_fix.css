@@ -225,7 +225,6 @@ body {
     gap: 0.5rem;
     border: none;
     position: relative; 
-    overflow: hidden; /* Added for fill effect */
 }
 .cta-button:hover {
     transform: translateY(-3px) scale(1.03);
@@ -236,32 +235,6 @@ body {
     box-shadow: 0 4px 15px rgba(110, 69, 226, 0.4);
     filter: brightness(0.9);
 }
-
-/* Fill effect for .is-downloading state */
-.cta-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0%; /* Initial state */
-    height: 100%;
-    background-color: rgba(136, 211, 206, 0.3); /* Slightly more subtle fill */
-    transition: width 2s ease-out; /* Duration of the fill + progress simulation (matches JS) */
-    z-index: 0; /* Behind the text and icon */
-    border-radius: 25px; /* Match parent's border-radius */
-}
-.cta-button.is-downloading::before {
-    width: 100%; /* Fill the button */
-}
-/* Ensure text and original spinner are above the fill, or basic spinner hidden */
-.cta-button .button-text { 
-    position: relative; /* Ensure text is above ::before pseudo-element */
-    z-index: 1;
-}
-.cta-button.is-downloading .button-loader-spinner { /* Hide basic spinner if .is-downloading is active */
-    display: none !important; 
-}
-
 
 .hero-cta {
     animation: 나타남 1s ease-out 0.4s backwards;
@@ -745,38 +718,31 @@ body {
     display: inline-block;
     vertical-align: middle;
     transition: opacity 0.2s ease-out; 
-    position: relative; 
-    z-index: 1; 
 }
 
 .cta-button.is-loading .button-text {
     opacity: 0; 
-    visibility: hidden; 
+    visibility: hidden; /* Ensure it doesn't take space */
 }
-.cta-button.is-downloading .button-text { 
-    opacity: 1;
-    visibility: visible;
-    color: #FFFFFF; 
-}
-
 
 .button-loader-spinner {
+    /* display: inline-block; /* JS will add spinner, this is for direct HTML version */
     width: 1.2em; 
     height: 1.2em;
     border: 3px solid rgba(255,255,255,0.4); 
     border-radius: 50%;
     border-top-color: #FFFFFF; 
     animation: button-spin 0.8s linear infinite;
+    /* vertical-align: middle; Removed as it's not needed for absolute positioning */
     position: absolute; 
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%); 
-    opacity: 0; 
+    opacity: 0; /* Hidden by default, shown when .is-loading is on parent */
     transition: opacity 0.2s ease-in; 
-    z-index: 2; 
 }
 
-.cta-button.is-loading .button-loader-spinner { 
+.cta-button.is-loading .button-loader-spinner {
     opacity: 1; 
 }
 
