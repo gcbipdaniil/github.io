@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         heroAppIcon.style.transform = 'translateY(30px) scale(0.9)';
     }
 
-    // APK Download Button Animation Logic (REFINED)
+    // APK Download Button Animation Logic
     document.body.addEventListener('click', function(event) {
         const button = event.target.closest('.download-apk-button');
 
@@ -226,20 +226,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const buttonTextSpan = button.querySelector('.button-text');
             if (!buttonTextSpan) {
-                console.error('.button-text span not found within .download-apk-button. Cannot apply loading animation correctly.');
-                window.location.href = button.href; 
-                return;
+                console.error('Button text span (.button-text) not found inside .download-apk-button!');
+                const originalButtonContent = button.innerHTML;
+                button.classList.add('is-loading');
+                button.innerHTML = '<span class="button-text" style="display:none;"></span><span class="button-loader-spinner"></span>'; 
+                
+                setTimeout(() => {
+                    const downloadUrl = button.href;
+                    const link = document.createElement('a');
+                    link.href = downloadUrl;
+                    let filename = downloadUrl.substring(downloadUrl.lastIndexOf('/') + 1);
+                    if (!filename || filename.indexOf('.') === -1) { 
+                        filename = 'download.apk'; 
+                    }
+                    link.setAttribute('download', filename);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    button.innerHTML = originalButtonContent; 
+                    button.classList.remove('is-loading');
+                }, 1500);
+                return; 
             }
+            
+            const originalButtonSpanHTML = buttonTextSpan.innerHTML; 
             
             button.classList.add('is-loading');
-
-            let spinner = button.querySelector('.button-loader-spinner'); 
-            if (!spinner) {
+            
+            let spinner = button.querySelector('.button-loader-spinner');
+            if (!spinner) { 
                 spinner = document.createElement('span');
                 spinner.className = 'button-loader-spinner';
-                button.appendChild(spinner); 
             }
-            
+            // Spinner is managed by CSS based on .is-loading class
+
             setTimeout(() => {
                 const downloadUrl = button.href;
                 const link = document.createElement('a');
@@ -254,15 +275,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.removeChild(link);
 
                 button.classList.remove('is-loading');
-                const spinnerToRemove = button.querySelector('.button-loader-spinner');
-                if (spinnerToRemove) {
-                    spinnerToRemove.remove();
-                }
             }, 1500); 
         }
     });
 
-    // About Me Section Logic
+    // About Me Section Logic (NEW CODE)
     const aboutMeContentEl = document.getElementById('about-me-content');
     const langSwitcherEl = document.getElementById('lang-switcher-about-me');
 

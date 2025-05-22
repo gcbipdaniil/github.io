@@ -219,12 +219,12 @@ body {
     color: white;
     text-decoration: none;
     border-radius: 25px;
-    transition: transform 0.2s ease-out, box-shadow 0.3s ease-out, filter 0.1s ease-out, background-image 0.2s ease-out; 
+    transition: transform 0.2s ease-out, box-shadow 0.3s ease-out, filter 0.1s ease-out, background-image 0.2s ease-out; /* Added background-image to transition */
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     border: none;
-    position: relative; 
+    position: relative; /* For loader positioning if needed */
 }
 .cta-button:hover {
     transform: translateY(-3px) scale(1.03);
@@ -297,7 +297,7 @@ body {
     gap: 2rem;
 }
 
-.feature-item { 
+.feature-item { /* This class is used in app details content */
     background-color: #1E1E28; 
     padding: 2rem 1.5rem;
     border-radius: 16px;
@@ -306,7 +306,7 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.feature-item.is-visible { 
+.feature-item.is-visible { /* Applied by JS for scroll-based animation */
     opacity: 1;
     transform: translateY(0);
 }
@@ -375,10 +375,10 @@ body {
     text-align: center;
     background-color: #10101A;
 }
-.download-logo-main { 
+.download-logo-main { /* Used in app details */
     width: 100px; 
     height: 100px;
-    border-radius: 20px; 
+    border-radius: 20px; /* Standardized */
     margin-bottom: 1rem;
     box-shadow: 0 5px 20px rgba(110, 69, 226, 0.2);
 }
@@ -712,150 +712,27 @@ body {
 /* ===== Button Loader CSS ===== */
 .cta-button.is-loading {
     pointer-events: none;
+    /* Optional: slightly dim the button or change background if desired */
+    /* background-image: linear-gradient(135deg, #5836b5 0%, #6aa8a4 100%); /* Darker shade */
 }
 
-.cta-button .button-text { 
+.cta-button .button-text { /* Span to wrap original button text */
     display: inline-block;
     vertical-align: middle;
-    transition: opacity 0.2s ease-out; 
-}
-
-.cta-button.is-loading .button-text {
-    opacity: 0; 
 }
 
 .button-loader-spinner {
-    display: inline-block; 
-    width: 1.2em; 
+    display: inline-block;
+    width: 1.2em; /* Relative to button font size */
     height: 1.2em;
-    border: 3px solid rgba(255,255,255,0.4); 
+    border: 3px solid rgba(255,255,255,0.4); /* Lighter border for visibility on gradient */
     border-radius: 50%;
-    border-top-color: #FFFFFF; 
+    border-top-color: #FFFFFF; /* White spinner part */
     animation: button-spin 0.8s linear infinite;
+    margin-left: 10px; /* Spacing from button text */
     vertical-align: middle;
-    position: absolute; 
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); 
-    opacity: 0; 
-    transition: opacity 0.2s ease-in; 
 }
-
-.cta-button.is-loading .button-loader-spinner {
-    opacity: 1; 
-}
-
 
 @keyframes button-spin {
     to { transform: rotate(360deg); }
-}
-
-/* ===== About Me Section ===== */
-.about-me-section {
-    padding: 4rem 0;
-    background-color: #161620; 
-    text-align: center;
-}
-
-.lang-switcher {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem; 
-    gap: 0.75rem; 
-    flex-wrap: wrap; /* Added for responsiveness */
-}
-
-.lang-button {
-    padding: 0.5rem 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background-color: transparent;
-    color: #A0A7B1; 
-    font-family: 'Manrope', sans-serif; 
-    font-size: 0.9rem;
-    font-weight: 500;
-    border-radius: 20px; 
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
-.lang-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: #EAEAEA;
-}
-
-.lang-button.active {
-    background-image: linear-gradient(135deg, #6E45E2 0%, #88d3ce 100%); 
-    color: white;
-    border-color: transparent; 
-    font-weight: 700; 
-}
-
-.multilang-content {
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.8;
-    color: #C0C8D1; 
-    font-size: 1.05rem; 
-    padding: 0 1rem; 
-}
-
-/* ===== Contacts Section ===== */
-.contacts-section {
-    padding: 4rem 0;
-    background-color: #10101A; 
-    text-align: center;
-}
-
-.contact-items-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem; 
-    text-align: left; 
-    max-width: 900px; 
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.contact-item {
-    background-color: #1E1E28; 
-    padding: 1.5rem;
-    border-radius: 16px; /* Standardized with app-card */
-    border: 1px solid rgba(255, 255, 255, 0.08); /* Standardized with app-card */
-    transition: all 0.3s ease-out; /* Match app-card transition */
-}
-
-.contact-item:hover {
-    transform: translateY(-5px) scale(1.02); /* Match app-card hover */
-    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25); /* Match app-card hover */
-    border-color: rgba(110, 69, 226, 0.5); /* Match app-card hover */
-}
-
-.contact-label {
-    display: block;
-    font-weight: 600;
-    color: #A0A7B1; 
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-}
-
-.contact-value {
-    color: #EAEAEA;
-    text-decoration: none;
-    word-break: break-all; 
-    font-size: 1rem;
-    transition: color 0.2s ease-out;
-}
-
-.contact-value:hover {
-    text-decoration: underline;
-    color: #88d3ce; 
-}
-
-.contacts-placeholder-note {
-    margin-top: 3rem; 
-    font-size: 0.9rem;
-    color: #777E8C; 
-    font-style: italic;
 }

@@ -225,19 +225,29 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
             const buttonTextSpan = button.querySelector('.button-text');
+            // If buttonTextSpan is not found, this indicates an HTML structure issue.
+            // For robustness, we could proceed, but the CSS relies on .button-text for hiding text.
             if (!buttonTextSpan) {
                 console.error('.button-text span not found within .download-apk-button. Cannot apply loading animation correctly.');
+                // Directly trigger download without animation if structure is broken
                 window.location.href = button.href; 
                 return;
             }
             
+            // Store original HTML content of the span (e.g., icon + text)
+            const originalButtonSpanHTML = buttonTextSpan.innerHTML; 
+            
             button.classList.add('is-loading');
+            // CSS will hide .button-text and show .button-loader-spinner
+            // if spinner is part of HTML or if CSS uses ::after.
+            // Since CSS positions spinner absolutely, we need to add it.
 
-            let spinner = button.querySelector('.button-loader-spinner'); 
+            // Dynamically create and append spinner
+            let spinner = button.querySelector('.button-loader-spinner'); // Check if already there
             if (!spinner) {
                 spinner = document.createElement('span');
                 spinner.className = 'button-loader-spinner';
-                button.appendChild(spinner); 
+                button.appendChild(spinner); // Append to the button itself
             }
             
             setTimeout(() => {
@@ -253,11 +263,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.click();
                 document.body.removeChild(link);
 
+                // Restore button state
                 button.classList.remove('is-loading');
+                // Remove the spinner
                 const spinnerToRemove = button.querySelector('.button-loader-spinner');
                 if (spinnerToRemove) {
                     spinnerToRemove.remove();
                 }
+                // Restore original text (CSS will make it visible again)
+                // buttonTextSpan.innerHTML = originalButtonSpanHTML; // This line is actually not needed if text is hidden via opacity
             }, 1500); 
         }
     });
