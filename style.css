@@ -1,3 +1,45 @@
+/* Loader styles */
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #10101A; /* Matches body background */
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out; /* For fade-out */
+}
+
+#loader-wrapper img {
+  width: 150px;
+  height: auto;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* Class to hide the loader */
+.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
 /* ===== Общие сбросы и настройки ===== */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -58,21 +100,21 @@ body {
 }
 
 .logo-img {
-    width: 36px; /* Размер лого в навбаре */
+    width: 36px; 
     height: 36px;
     margin-right: 0.75rem;
-    border-radius: 6px; /* Слегка скруглить */
+    border-radius: 6px; 
 }
 
 .nav-cta {
     font-size: 1rem;
     font-weight: 500;
     padding: 0.6rem 1.2rem;
-    background-image: linear-gradient(135deg, #6E45E2 0%, #88d3ce 100%); /* Фирменный градиент */
+    background-image: linear-gradient(135deg, #6E45E2 0%, #88d3ce 100%); 
     color: white;
     text-decoration: none;
-    border-radius: 20px;
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    border-radius: 25px; /* Standardized */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, filter 0.1s ease-out;
 }
 
 .nav-cta:hover {
@@ -80,8 +122,12 @@ body {
     box-shadow: 0 4px 15px rgba(110, 69, 226, 0.4);
 }
 
+.nav-cta:active {
+    transform: scale(0.98);
+    filter: brightness(0.9);
+}
 
-/* ===== Hero Section ===== */
+/* ===== Hero Section (Original - kept for reference, not visible in SPA grid view) ===== */
 .hero-section {
     min-height: 100vh;
     display: flex;
@@ -89,8 +135,8 @@ body {
     justify-content: center;
     text-align: center;
     position: relative;
-    overflow: hidden; /* Для градиентного фона */
-    padding-top: 80px; /* Отступ от навбара */
+    overflow: hidden; 
+    padding-top: 80px;
 }
 
 .hero-background-gradient {
@@ -99,24 +145,23 @@ body {
     background: radial-gradient(ellipse at center, rgba(30, 27, 60, 0.9) 0%, #10101A 70%);
     z-index: -1;
 }
-/* Дополнительные декоративные градиенты на фоне */
 .hero-section::before, .hero-section::after {
     content: '';
     position: absolute;
     border-radius: 50%;
-    filter: blur(100px); /* Сильное размытие для мягкого свечения */
+    filter: blur(100px); 
     z-index: -2;
     pointer-events: none;
 }
-.hero-section::before { /* Левый верхний */
+.hero-section::before { 
     width: 40vw; height: 40vw; max-width: 500px; max-height: 500px;
-    background-color: rgba(110, 69, 226, 0.15); /* Фиолетовый */
+    background-color: rgba(110, 69, 226, 0.15); 
     top: -10%; left: -10%;
     animation: pulse-glow 8s infinite alternate ease-in-out;
 }
-.hero-section::after { /* Правый нижний */
+.hero-section::after { 
     width: 35vw; height: 35vw; max-width: 450px; max-height: 450px;
-    background-color: rgba(136, 211, 206, 0.1); /* Бирюзовый */
+    background-color: rgba(136, 211, 206, 0.1); 
     bottom: -15%; right: -10%;
     animation: pulse-glow 10s infinite alternate-reverse ease-in-out;
 }
@@ -128,29 +173,29 @@ body {
 
 
 .hero-content {
-    position: relative; /* Чтобы был над фоновыми градиентами */
+    position: relative; 
     z-index: 1;
-    padding-bottom: 4rem; /* Место для индикатора прокрутки */
+    padding-bottom: 4rem; 
 }
 
 .hero-icon-container {
     margin-bottom: 1.5rem;
     animation: subtle-bob 3s infinite ease-in-out;
 }
-.hero-app-icon {
-    width: 120px; /* Размер основной иконки */
+.hero-app-icon { /* Original main page icon style */
+    width: 120px; 
     height: 120px;
-    border-radius: 24px; /* Скругление в стиле iOS/новых Android */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(110, 69, 226, 0.3); /* Тень + свечение */
+    border-radius: 24px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(110, 69, 226, 0.3);
 }
 
 .hero-title {
-    font-size: clamp(2.5rem, 6vw, 4rem); /* Адаптивный размер шрифта */
+    font-size: clamp(2.5rem, 6vw, 4rem); 
     font-weight: 800;
     color: #FFFFFF;
     margin-bottom: 0.75rem;
     letter-spacing: -1px;
-    background: linear-gradient(135deg, #e5e5e5 0%, #b0b0b0 100%); /* Градиент для текста */
+    background: linear-gradient(135deg, #e5e5e5 0%, #b0b0b0 100%); 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: 나타남 1s ease-out;
@@ -158,12 +203,12 @@ body {
 
 .hero-subtitle {
     font-size: clamp(1rem, 2.5vw, 1.3rem);
-    color: #A0A7B1; /* Светло-серый */
+    color: #A0A7B1; 
     margin-bottom: 2.5rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    animation: 나타남 1s ease-out 0.2s backwards; /* Задержка для появления */
+    animation: 나타남 1s ease-out 0.2s backwards; 
 }
 
 .cta-button {
@@ -174,7 +219,7 @@ body {
     color: white;
     text-decoration: none;
     border-radius: 25px;
-    transition: transform 0.2s ease-out, box-shadow 0.3s ease-out;
+    transition: transform 0.2s ease-out, box-shadow 0.3s ease-out, filter 0.1s ease-out;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -184,6 +229,12 @@ body {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 8px 25px rgba(110, 69, 226, 0.5);
 }
+.cta-button:active {
+    transform: translateY(-1px) scale(1.00); 
+    box-shadow: 0 4px 15px rgba(110, 69, 226, 0.4);
+    filter: brightness(0.9);
+}
+
 .hero-cta {
     animation: 나타남 1s ease-out 0.4s backwards;
 }
@@ -203,7 +254,7 @@ body {
 }
 .scroll-down-indicator a {
     color: #888;
-    font-size: 2.5rem; /* Размер иконки стрелки */
+    font-size: 2.5rem; 
     text-decoration: none;
 }
 @keyframes bounce {
@@ -211,7 +262,7 @@ body {
   40% {transform: translateX(-50%) translateY(-10px);}
   60% {transform: translateX(-50%) translateY(-5px);}
 }
-@keyframes 나타남 { /* Анимация появления */
+@keyframes 나타남 { 
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
@@ -232,9 +283,9 @@ body {
 }
 
 
-/* ===== Features Section ===== */
+/* ===== Features Section (Original - for reference or if reused in app details) ===== */
 .features-section {
-    background-color: #161620; /* Чуть светлее основного фона */
+    background-color: #161620; 
     padding-top: 4rem;
     padding-bottom: 4rem;
 }
@@ -245,18 +296,18 @@ body {
     gap: 2rem;
 }
 
-.feature-item {
-    background-color: #1E1E28; /* Фон карточки */
+.feature-item { /* This class is used in app details content */
+    background-color: #1E1E28; 
     padding: 2rem 1.5rem;
     border-radius: 16px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0; /* Для анимации */
-    transform: translateY(20px); /* Для анимации */
+    /* opacity: 0; /* Base opacity for items animated by JS */
+    /* transform: translateY(20px); /* Base transform for items animated by JS */
 }
-.feature-item.is-visible { /* Класс добавляется JS */
+.feature-item.is-visible { /* Applied by JS for scroll-based animation */
     opacity: 1;
     transform: translateY(0);
 }
@@ -287,11 +338,11 @@ body {
 }
 
 
-/* ===== CTA Banner Section ===== */
+/* ===== CTA Banner Section (Original - for reference) ===== */
 .cta-banner-section {
     background-image: linear-gradient(135deg, #21202E 0%, #2A2A3A 100%),
-                      url('path/to/subtle_background_pattern.svg'); /* Можно добавить паттерн */
-    background-blend-mode: overlay; /* Или другой режим смешивания */
+                      url('path/to/subtle_background_pattern.svg'); 
+    background-blend-mode: overlay; 
     background-size: cover, 200px;
     padding: 4rem 0;
     text-align: center;
@@ -319,16 +370,16 @@ body {
 }
 
 
-/* ===== Download Section ===== */
+/* ===== Download Section (Original - for reference or if reused in app details) ===== */
 .download-section {
     padding: 4rem 0;
     text-align: center;
     background-color: #10101A;
 }
-.download-logo-main {
-    width: 100px;
+.download-logo-main { /* Used in app details */
+    width: 100px; 
     height: 100px;
-    border-radius: 20px;
+    border-radius: 20px; /* Standardized */
     margin-bottom: 1rem;
     box-shadow: 0 5px 20px rgba(110, 69, 226, 0.2);
 }
@@ -361,7 +412,7 @@ body {
     font-weight: 500;
     color: #C0C8D1;
     cursor: pointer;
-    list-style-position: inside; /* Для стрелки спойлера */
+    list-style-position: inside; 
 }
 .install-guide ol {
     padding-left: 1.5rem;
@@ -375,7 +426,7 @@ body {
 
 /* ===== Footer Section ===== */
 .footer-section {
-    background-color: #0D0D14; /* Самый темный */
+    background-color: #0D0D14; 
     padding: 2rem 0;
     text-align: center;
     color: #666B77;
@@ -404,8 +455,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
-    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-    z-index: 900;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s, filter 0.1s ease-out;
 }
 .back-to-top.visible {
     opacity: 1;
@@ -415,7 +465,10 @@ body {
 .back-to-top:hover {
     filter: brightness(1.1);
 }
-
+.back-to-top:active {
+    transform: scale(0.95) translateY(0); /* Keep translateY(0) to avoid jump with visibility */
+    filter: brightness(0.9);
+}
 
 /* ===== Адаптивность (Медиа-запросы) ===== */
 @media (max-width: 768px) {
@@ -430,13 +483,13 @@ body {
         margin-bottom: 2rem;
     }
     .features-grid {
-        grid-template-columns: 1fr; /* Одна колонка на мобильных */
+        grid-template-columns: 1fr; 
     }
     .nav-logo span {
-        display: none; /* Скрыть текст лого на маленьких экранах */
+        display: none; 
     }
     .hero-section {
-        padding-top: 60px; /* Меньше отступ */
+        padding-top: 60px; 
         min-height: 90vh;
     }
     .cta-button, .nav-cta {
@@ -453,15 +506,15 @@ body {
 }
 
 @media (max-width: 480px) {
-    .hero-app-icon {
+    .hero-app-icon { /* Original main page icon style */
         width: 100px;
         height: 100px;
         border-radius: 20px;
     }
-    .download-logo-main {
+    .download-logo-main { /* Used in app details */
         width: 80px;
         height: 80px;
-        border-radius: 16px;
+        border-radius: 20px; /* Standardized from 16px */
     }
     .feature-item {
         padding: 1.5rem 1rem;
@@ -470,3 +523,210 @@ body {
         font-size: 2.5rem;
     }
 }
+
+/* ===== Apps Grid Section ===== */
+.apps-grid-section {
+    padding-top: 120px; 
+    padding-bottom: 4rem;
+    background-color: #10101A; 
+    /* Base transition for SPA, can be overridden by specific classes */
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; 
+}
+
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.app-card {
+    background-color: #1E1E28; 
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-out; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center; 
+}
+
+.app-card:hover {
+    transform: translateY(-5px) scale(1.02); 
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25); 
+    border-color: rgba(110, 69, 226, 0.5); 
+}
+
+.app-card-icon {
+    width: 80px; 
+    height: 80px;
+    border-radius: 20px; /* Standardized */
+    margin-bottom: 1rem;
+    object-fit: cover; 
+}
+
+.app-card-title {
+    font-size: 1.4rem; 
+    font-weight: 600;
+    color: #F0F0F0;
+    margin-bottom: 0.5rem;
+}
+
+.app-card-description {
+    font-size: 0.9rem;
+    color: #A0A7B1; 
+    margin-bottom: 1.5rem; 
+    flex-grow: 1; 
+}
+
+.app-card-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    background-image: linear-gradient(135deg, #6E45E2 0%, #88d3ce 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px; /* Standardized */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, filter 0.1s ease-out;
+    display: inline-block; 
+}
+
+.app-card-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(110, 69, 226, 0.4);
+}
+.app-card-link:active {
+    transform: scale(0.98);
+    filter: brightness(0.9);
+}
+
+/* Responsive adjustments for app cards if needed */
+@media (max-width: 500px) {
+    .apps-grid {
+        grid-template-columns: 1fr; 
+    }
+    .app-card {
+        padding: 1.2rem;
+    }
+    .app-card-title {
+        font-size: 1.2rem;
+    }
+}
+
+/* ===== SPA Section Transitions & App Details Section ===== */
+.app-details-section {
+    padding-top: 120px; /* Standardized */
+    padding-bottom: 4rem;
+    background-color: #10101A; 
+    /* Base transition for SPA, can be overridden by specific classes */
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.section-fade-out {
+    opacity: 0 !important;
+    transform: scale(0.95) !important; /* Slightly different transform for variety */
+}
+
+.section-fade-in {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+/* Style for the back button */
+#back-to-grid-button { /* Uses .cta-button styles by class attribute */
+    margin-bottom: 2rem;
+}
+
+/* Styles for content dynamically loaded into #app-details-content */
+.hero-section-app-detail {
+    min-height: auto; 
+    padding-top: 3rem; 
+    padding-bottom: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-background-gradient-app-detail { 
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(30, 27, 60, 0.7) 0%, #10101A 60%);
+    z-index: -1;
+    opacity: 0.5; 
+}
+
+.hero-content-app-detail .hero-app-icon { 
+    width: 100px; 
+    height: 100px;
+    border-radius: 20px; /* Standardized */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25), 0 0 30px rgba(110, 69, 226, 0.25);
+    margin-bottom: 1rem;
+}
+
+.hero-title-app-detail { 
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #efefef 0%, #c0c0c0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle-app-detail {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: #A0A7B1;
+    margin-bottom: 2rem;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-cta-app-detail { /* Uses .cta-button styles by class attribute */
+}
+
+/* Features section within app details */
+.features-section-app-detail { /* Reuses .features-section styles if structure is similar */
+    background-color: #161620;
+    padding: 3rem 0; 
+}
+/* .feature-item styles are reused from global. Add specificity if needed */
+/* e.g. .features-section-app-detail .feature-item {} */
+
+
+/* Download section within app details */
+.download-section-app-detail { /* Reuses .download-section styles if structure is similar */
+    padding: 3rem 0; 
+    text-align: center;
+    background-color: #10101A;
+}
+/* .download-logo-main etc. styles are reused from global if class names match */
+
+/* ===== Entry Animation for App Detail Items ===== */
+.detail-item-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.detail-item-fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Selector for items to animate in app details (JS applies classes) */
+/* This is more of a comment for JS, actual styling is on .detail-item-fade-in */
+/*
+.hero-section-app-detail, 
+.features-section-app-detail .feature-item, 
+.download-section-app-detail .container > * {
+}
+*/
+/* Note: Original .feature-item has opacity:0 and transform for its own scroll animation.
+   If .detail-item-fade-in is applied to .feature-item, ensure no conflict or that one overrides.
+   The .is-visible class on .feature-item might need to be handled or overridden by .detail-item-fade-in.is-visible
+   if the scroll-based animation is not desired for the SPA entry.
+   For simplicity, the SPA's .detail-item-fade-in will take precedence if applied.
+*/
